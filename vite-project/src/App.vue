@@ -15,7 +15,9 @@ function readInvoices() {
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         invoices.value.push({
-          name: doc.data().name
+          name: doc.data().name,
+          date: doc.data().date_issue.toDate()
+            .toISOString().replace(/T/, ' ').replace(/\.\d\d\dZ/, '')
         });
       });
       console.log(invoices)
@@ -29,9 +31,17 @@ readInvoices()
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
-  <div v-for="i in invoices">Faktura: {{ i.name }}</div>
+  <!-- <img alt="Vue logo" src="./assets/logo.png" />
+  <HelloWorld msg="Hello Vue 3 + Vite" /> -->
+  <div class="container">
+    <div v-for="i in invoices" class="card text-dark bg-light mb-3">
+      <div class="card-header">Faktura</div>
+      <div class="card-body">
+        <h5 class="card-title">{{ i.name }}</h5>
+        <p class="card-text">{{ i.date }}</p>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style>
