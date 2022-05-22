@@ -3,6 +3,7 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import HelloWorld from './components/HelloWorld.vue'
 import firebase from "./firebaseInit";
+import DoughnutChart from './components/MyChart.ts'
 import { ref, reactive } from 'vue'
 
 const db = firebase.firestore();
@@ -42,6 +43,7 @@ readInvoices()
       </div>
     </div>
   </div>
+  <DoughnutChart />
 </template>
 
 <style>
