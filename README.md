@@ -18,4 +18,14 @@ Funkcjonalności: <br />
 -edytowanie statusu faktury (akceptacja itd.) <br />
 -edytowanie faktury za pomocą formularza  <br />
 -usuwanie faktury <br />
--prezentowanie statystyk np. płatności na wykresach
+-prezentowanie statystyk np. płatności na wykresach<br />
+
+Ustalenia z zajęć:<br />
+-tylko faktury przychodzące<br />
+-data wystawienia fv, data wprowadzenia fv, data akceptacji fv, data zapłaty fv<br />
+-kontrahent ma ograniczone informacje (np. tylko NIP i nazwę - ewentualnie z GUSu)<br />
+-kwota faktury, kwota do zapłaty<br />
+-pojedyncze i grupowe oznaczanie do zmiany statusu faktury<br />
+-harmonogram opłat: zaległe, na dziś, na jutro<br />
+-użytkownicy z rolami: administrator, dodawanie, akceptowanie itd.<br />
+
