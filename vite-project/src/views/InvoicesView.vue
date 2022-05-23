@@ -18,7 +18,7 @@ DBM.readInvoices(invoices);
                         class="bi bi-check2-all"></i>
                     Zaznacz</button>
                 <button type="button" class="btn btn-success btn-new-invoice float-end  mt-3">
-                    New invoice <i class="bi bi-plus-lg"></i></button>
+                    Utwórz <i class="bi bi-plus-lg"></i></button>
             </div>
             <div v-for="i in invoices" class="card invoice-list-item text-dark bg-light mb-3 mt-3">
                 <div class="card-header">Faktura</div>
@@ -35,7 +35,7 @@ DBM.readInvoices(invoices);
                     <button type="button" class="btn btn-secondary float-end"><i
                             class="bi bi-pencil-square"></i></button>
                     <div class="alert alert-warning float-end" role="alert">
-                        Waiting for acceptance
+                        Oczekiwanie na akceptację
                     </div>
                 </div>
             </div>
