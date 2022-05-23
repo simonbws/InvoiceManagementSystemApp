@@ -2,7 +2,13 @@
 </script>
 
 <template>
-    <p>SCHEDULE VIEW</p>
+    <div class="container-fluid">
+        <div class="container">
+            <div class="alert alert-primary mt-3" role="alert">
+                Schedule view
+            </div>
+        </div>
+    </div>
 </template>
 
 <style>
