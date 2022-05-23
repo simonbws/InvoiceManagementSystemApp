@@ -5,6 +5,7 @@ import router from './router'
 
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
+import './registerServiceWorker'
 
 // import { firestorePlugin } from 'vuefire'
 // Vue.use(firestorePlugin);
