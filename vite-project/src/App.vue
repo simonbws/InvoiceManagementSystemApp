@@ -1,34 +1,10 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
-import firebase from "./firebaseInit";
-import DoughnutChart from './components/MyChart.ts'
-import { ref, reactive } from 'vue'
+import PageHeader from './components/PageHeader.vue'
+import PageFooter from './components/PageFooter.vue'
+import PageMain from './components/PageMain.vue'
+import PageNav from './components/PageNav.vue'
 
-const db = firebase.firestore();
 
-const invoices = ref([])
-
-function readInvoices() {
-  db.collection("invoices")
-    .get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        invoices.value.push({
-          name: doc.data().name,
-          date: doc.data().date_issue.toDate()
-            .toISOString().replace(/T/, ' ').replace(/\.\d\d\dZ/, '')
-        });
-      });
-      console.log(invoices)
-
-    })
-    .catch((error) => {
-      console.log("Error getting documents: ", error);
-    });
-}
-readInvoices();
 window.onload = function () {
   let changeView = document.getElementsByClassName('change-view');
   for (let c of changeView) {
@@ -50,39 +26,15 @@ window.onload = function () {
 
 <template>
   <div class="d-flex" id="wrapper">
-    <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">Menu </div>
-      <div class="list-group list-group-flush">
-        <div class="list-group-item change-view active" change-view="tiles">Faktury</div>
-        <div class="list-group-item change-view" change-view="advanced">Harmonogram</div>
-        <div class="list-group-item change-view" change-view="advanced">Statystyki</div>
-      </div>
-    </div>
+    <page-nav></page-nav>
     <div id="page-content-wrapper">
-      <div id="page-content-over" class="hidden"></div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <button id="menu-toggle" class="navbar-toggler shadow-none" type="button" data-toggle="collapse"
-          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-          aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <span class="navbar-brand mb-0 h1"></span>
-      </nav>
-      <div class="container-fluid">
-        <div class="container">
-          <div v-for="i in invoices" class="card text-dark bg-light mb-3 mt-3">
-            <div class="card-header">Faktura</div>
-            <div class="card-body">
-              <h5 class="card-title">{{ i.name }}</h5>
-              <p class="card-text">{{ i.date }}</p>
-            </div>
-          </div>
-        </div>
-        <DoughnutChart />
-      </div>
+      <page-header></page-header>
+      <page-main>
+        <router-view></router-view>
+      </page-main>
     </div>
+    <!-- <page-footer></page-footer> -->
   </div>
-
 </template>
 
 <style>
