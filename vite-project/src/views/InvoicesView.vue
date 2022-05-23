@@ -1,30 +1,10 @@
 <script setup>
-import firebase from "../firebaseInit";
 import { ref, reactive } from 'vue'
-
-const db = firebase.firestore();
+import DBM from '../db'
 
 const invoices = ref([])
+DBM.readInvoices(invoices);
 
-function readInvoices() {
-    db.collection("invoices")
-        .get()
-        .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                invoices.value.push({
-                    name: doc.data().name,
-                    date: doc.data().date_issue.toDate()
-                        .toISOString().replace(/T/, ' ').replace(/\.\d\d\dZ/, '')
-                });
-            });
-            console.log(invoices)
-
-        })
-        .catch((error) => {
-            console.log("Error getting documents: ", error);
-        });
-}
-readInvoices();
 </script>
 
 <template>
