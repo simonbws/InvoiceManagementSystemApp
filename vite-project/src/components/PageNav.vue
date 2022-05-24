@@ -18,7 +18,49 @@
                         Statystyki
                     </div>
                 </router-link>
+                <div role="link" class="list-group-item change-view logout" @click="logout">
+                    Wyloguj
+                </div>
             </div>
         </div>
     </slot>
 </template>
+
+<script>
+import firebase from '../firebaseInit'
+import { Modal } from 'bootstrap'
+
+export default {
+    name: 'Login',
+    data() {
+        return {
+            email: 'a@b.cd',
+            password: '123456',
+        };
+    },
+    methods: {
+        logout() {
+            document.getElementById('myAlertText').innerHTML = "Wylogowano"
+            let myModal = new Modal(document.getElementById('myAlert'), {
+                keyboard: false
+            })
+            firebase
+                .auth()
+                .signOut()
+                .then(() => {
+                    myModal.show();
+                    setTimeout(() => {
+                        this.$router.push('/')
+                        setTimeout(() => {
+                            myModal.hide();
+                        }, 1000);
+                    }, 500);
+                })
+                .catch(error => {
+                    alert(error.message);
+                    this.$router.push('/');
+                });
+        }
+    },
+};
+</script>

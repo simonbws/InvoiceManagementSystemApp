@@ -1,5 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
+import 'firebase/compat/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -10,6 +11,8 @@ const firebaseConfig = {
     messagingSenderId: "56737719797",
     appId: "1:56737719797:web:343df6d12ac2724da66cbc"
   };
+
+console.log("FIREBASE AUTH", firebase.auth)
 
 // Initialize Firebase
 export default firebase.initializeApp(firebaseConfig);

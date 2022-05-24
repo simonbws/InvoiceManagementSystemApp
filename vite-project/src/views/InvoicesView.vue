@@ -9,6 +9,7 @@ DBM.readInvoices(invoices);
 </script>
 
 <template>
+
     <div class="container-fluid">
         <div class="container">
             <div class="button-line">

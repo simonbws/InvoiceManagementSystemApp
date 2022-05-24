@@ -25,6 +25,15 @@ window.onload = function () {
 </script>
 
 <template>
+  <div id="myAlert" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body my-alert-body">
+          <h5 id="myAlertText">Wylogowano</h5>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="d-flex" id="wrapper">
     <page-nav></page-nav>
     <div id="page-content-wrapper">
@@ -38,6 +47,10 @@ window.onload = function () {
 </template>
 
 <style>
+.my-alert-body {
+  text-align: center;
+}
+
 body {
   overflow-x: hidden;
 }

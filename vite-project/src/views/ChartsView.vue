@@ -3,6 +3,7 @@ import DoughnutChart from '../components/MyChart.ts'
 </script>
 
 <template>
+
     <div class="container-fluid">
         <div class="container">
             <div class="card text-dark bg-light mt-3">
