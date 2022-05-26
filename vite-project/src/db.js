@@ -6,6 +6,7 @@ class DBManager {
 
     db;
     invoices;
+    users;
 
     constructor() {
         this.db = firebase.firestore();
@@ -42,6 +43,22 @@ class DBManager {
             user2.setAccept(false);
             user2.setAdmin(false);
         });
+    }
+
+    readUsers(users) {
+        this.db.collection("users")
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    users.value.push({
+                        email: doc.id,
+                        role: doc.data().role
+                    });
+                });
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
     }
 
     readInvoices(invoices) {

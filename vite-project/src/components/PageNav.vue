@@ -37,7 +37,7 @@ import { storeToRefs } from 'pinia'
 const user2 = user();
 const { roleAdmin } = storeToRefs(user2);
 
-window.onclick = function () {
+document.body.onclick = function () {
     let changeView = document.getElementsByClassName('change-view');
     for (let c of changeView) {
         c.addEventListener("click", function (e) {

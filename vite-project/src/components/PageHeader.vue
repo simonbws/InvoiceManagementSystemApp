@@ -6,11 +6,14 @@
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <span class="navbar-brand mb-0 h1">
+            <span class="navbar-brand ms-auto">
+                <span class="role-display">User: {{ userEmail }}</span>
                 <span class="role-display">Roles:</span>
                 <span class="role-display" v-if="roleAdmin">admin</span>
                 <span class="role-display" v-if="roleCreate">create</span>
                 <span class="role-display" v-if="roleAccept">accept</span>
+
+
             </span>
         </nav>
     </slot>
@@ -23,12 +26,12 @@ const user2 = user();
 const { roleAccept } = storeToRefs(user2);
 const { roleAdmin } = storeToRefs(user2);
 const { roleCreate } = storeToRefs(user2);
-
+const { userEmail } = storeToRefs(user2);
 </script>
 
 <style>
 .role-display {
-    font-size: 1rem;
+    font-size: 0.8rem;
     margin: 0 5px;
 }
 </style>
