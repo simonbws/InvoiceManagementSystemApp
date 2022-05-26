@@ -1,6 +1,12 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import DBM from '../db'
+import { user } from '../store/user'
+import { storeToRefs } from 'pinia'
+const user2 = user();
+const { roleCreate } = storeToRefs(user2);
+const { roleAdmin } = storeToRefs(user2);
+const { roleAccept } = storeToRefs(user2);
 
 let checkall = ref(false);
 
@@ -9,7 +15,6 @@ DBM.readInvoices(invoices);
 </script>
 
 <template>
-
     <div class="container-fluid">
         <div class="container">
             <div class="button-line">
@@ -18,7 +23,7 @@ DBM.readInvoices(invoices);
                 <button id="check-all" @click="checkall = !checkall" type="button" class="btn btn-primary  mt-3"><i
                         class="bi bi-check2-all"></i>
                     Zaznacz</button>
-                <button type="button" class="btn btn-success btn-new-invoice float-end  mt-3">
+                <button type="button" v-if="roleCreate" class="btn btn-success btn-new-invoice float-end  mt-3">
                     Utwórz <i class="bi bi-plus-lg"></i></button>
             </div>
             <div v-for="i in invoices" class="card invoice-list-item text-dark bg-light mb-3 mt-3">
@@ -35,6 +40,8 @@ DBM.readInvoices(invoices);
                     <button type="button" class="btn btn-danger float-end"><i class="bi bi-x-circle"></i></button>
                     <button type="button" class="btn btn-secondary float-end"><i
                             class="bi bi-pencil-square"></i></button>
+                    <button type="button" v-if="roleAccept" class="btn btn-primary float-end"><i
+                            class="bi bi-check-square"></i></button>
                     <div class="alert alert-warning float-end" role="alert">
                         Oczekiwanie na akceptację
                     </div>

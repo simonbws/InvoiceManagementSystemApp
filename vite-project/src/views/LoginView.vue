@@ -1,6 +1,9 @@
 <script>
 import { Modal } from 'bootstrap'
 import firebase from '../firebaseInit';
+import DBM from '../db'
+import { user } from '../store/user'
+
 export default {
     name: 'Login',
     data() {
@@ -33,6 +36,9 @@ export default {
                 .then(() => {
                     myModal.show();
                     this.$router.push('/invoices');
+                    const user2 = user();
+                    user2.setEmail(this.email);
+                    DBM.readUserRole()
                     setTimeout(() => {
                         myModal.hide();
                     }, 500)

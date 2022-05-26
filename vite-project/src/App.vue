@@ -6,17 +6,6 @@ import PageNav from './components/PageNav.vue'
 
 
 window.onload = function () {
-  let changeView = document.getElementsByClassName('change-view');
-  for (let c of changeView) {
-    c.addEventListener("click", function (e) {
-      e.preventDefault();
-      let t = document.getElementsByClassName('change-view');
-      for (let i of t) {
-        i.classList.remove("active");
-      }
-      e.target.classList.add('active');
-    });
-  }
   document.getElementById('menu-toggle').addEventListener("click", function (e) {
     e.preventDefault();
     document.getElementById('wrapper').classList.toggle("toggled");

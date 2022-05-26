@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import firebase from './firebaseInit'
 import { Modal } from 'bootstrap'
+import { user } from './store/user'
+import { storeToRefs } from 'pinia'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -36,12 +38,39 @@ const router = createRouter({
         name: 'LoginView',
         component: () => import('./views/LoginView.vue')
       },
+      {
+        path: '/manageusers',
+        name: 'ManageUsersView',
+        component: () => import('./views/ManageUsersView.vue'),
+        meta: {
+          authRequired: true,
+          adminRequired: true
+        }
+      }
     ]
   })
 
   router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.authRequired)) {
-        if (firebase.auth().currentUser) {
+        if (to.matched.some(record => record.meta.authRequired)) {
+          if (to.matched.some(record => record.meta.adminRequired)) {
+            const user2 = user()
+            if (firebase.auth().currentUser && user2.roleAdmin) {
+                next();
+            } else {
+              document.getElementById('myAlertText').innerHTML = "Dostęp tylko dla administratora"
+              let myModal = new Modal(document.getElementById('myAlert'), {
+                  keyboard: false
+              })
+              myModal.show()
+              next({
+                path: '/',
+              });
+              setTimeout(()=>{
+                myModal.hide();
+              },3000);
+            }
+        }
+        else if (firebase.auth().currentUser) {
             next();
         } else {
           document.getElementById('myAlertText').innerHTML = "Zaloguj się, aby uzyskać dostęp"
@@ -56,9 +85,9 @@ const router = createRouter({
             myModal.hide();
           },3000);
         }
-    } else {
-        next();
-    }
+      } else {
+          next();
+      }
 });
 
 export default router

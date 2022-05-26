@@ -18,6 +18,11 @@
                         Statystyki
                     </div>
                 </router-link>
+                <router-link :to="{ name: 'ManageUsersView' }" custom v-slot="{ navigate }" v-if="roleAdmin">
+                    <div role="link" @click="navigate" class="list-group-item change-view" change-view="manage-users">
+                        Zarządzaj użytkownikami
+                    </div>
+                </router-link>
                 <div role="link" class="list-group-item change-view logout" @click="logout">
                     Wyloguj
                 </div>
@@ -25,6 +30,28 @@
         </div>
     </slot>
 </template>
+
+<script setup>
+import { user } from '../store/user'
+import { storeToRefs } from 'pinia'
+const user2 = user();
+const { roleAdmin } = storeToRefs(user2);
+
+window.onclick = function () {
+    let changeView = document.getElementsByClassName('change-view');
+    for (let c of changeView) {
+        c.addEventListener("click", function (e) {
+            e.preventDefault();
+            let t = document.getElementsByClassName('change-view');
+            for (let i of t) {
+                i.classList.remove("active");
+            }
+            e.target.classList.add('active');
+        });
+    }
+};
+
+</script>
 
 <script>
 import firebase from '../firebaseInit'
