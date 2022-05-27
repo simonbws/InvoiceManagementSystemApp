@@ -61,6 +61,12 @@ class DBManager {
             });
     }
 
+    parseDateFromFirebase(d) {
+        if(d)
+            return d.toDate().toISOString().replace(/T/, ' ').replace(/\.\d\d\dZ/, '')
+        return null
+    }
+
     readInvoices(invoices) {
         this.db.collection("invoices")
             .get()
@@ -68,8 +74,13 @@ class DBManager {
                 querySnapshot.forEach((doc) => {
                     invoices.value.push({
                         name: doc.data().name,
-                        date: doc.data().date_issue.toDate()
-                            .toISOString().replace(/T/, ' ').replace(/\.\d\d\dZ/, '')
+                        date_issue: this.parseDateFromFirebase(doc.data().date_issue),
+                        date_create: this.parseDateFromFirebase(doc.data().date_create),
+                        date_accept: this.parseDateFromFirebase(doc.data().date_accept),
+                        date_pay: this.parseDateFromFirebase(doc.data().date_pay),
+                        supplier_name : doc.data().supplier_name,
+                        supplier_nip : doc.data().supplier_nip,
+                        status: doc.data().status
                     });
                 });
             })
