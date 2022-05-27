@@ -90,13 +90,9 @@ window.onclick = function () {
                         v-if="i.status == 'created'" data-bs-placement="top" title="Status faktury">
                         Oczekiwanie na akceptację
                     </div>
-                    <div class="alert alert-primary float-end" role="alert" data-bs-toggle="tooltip"
+                    <div class="alert alert-success float-end" role="alert" data-bs-toggle="tooltip"
                         v-if="i.status == 'accepted'" data-bs-placement="top" title="Status faktury">
                         Zaakceptowano
-                    </div>
-                    <div class="alert alert-success float-end" role="alert" data-bs-toggle="tooltip"
-                        v-if="i.status == 'paid'" data-bs-placement="top" title="Status faktury">
-                        Zapłacono
                     </div>
                 </div>
             </div>
