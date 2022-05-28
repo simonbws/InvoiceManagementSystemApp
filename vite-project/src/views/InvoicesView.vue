@@ -51,8 +51,11 @@ window.onclick = function () {
                 <button id="check-all" v-if="invoiceChecked" type="button" class="btn btn-primary  mt-3"><i
                         class="bi bi-check-square"></i>
                     Akceptuj zaznaczone</button>
-                <button type="button" v-if="roleCreate" class="btn btn-success btn-new-invoice float-end  mt-3">
-                    Utwórz <i class="bi bi-plus-lg"></i></button>
+                <router-link :to="{ name: 'NewInvoiceView' }" custom v-slot="{ navigate }">
+                    <button role="link" @click="navigate" type="button" v-if="roleCreate"
+                        class="btn btn-success btn-new-invoice float-end  mt-3">
+                        Utwórz <i class="bi bi-plus-lg"></i></button>
+                </router-link>
             </div>
             <div v-for="i in invoices" class="card invoice-list-item text-dark bg-light mb-3 mt-3">
                 <div class="card-header">

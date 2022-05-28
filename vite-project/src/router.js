@@ -33,6 +33,14 @@ const router = createRouter({
         }
       },
       {
+        path: '/newinvoice',
+        name: 'NewInvoiceView',
+        component: () => import('./views/NewInvoiceView.vue'),
+        meta: {
+          authRequired: true,
+        }
+      },
+      {
         path: '/',
         alias:'/login',
         name: 'LoginView',
