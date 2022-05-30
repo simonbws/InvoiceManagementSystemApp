@@ -8,6 +8,7 @@ class DBManager {
     invoices;
     users;
     activeFilters;
+    activeSort;
 
     constructor() {
         this.db = firebase.firestore();
@@ -90,7 +91,7 @@ class DBManager {
                     });
                 });
                 this.invoices.value = this.applyFilters()
-                //this.invoices.value = this.applySort()
+                this.invoices.value = this.applySort()
             })
             .catch((error) => {
                 console.log("Error getting documents: ", error);
@@ -134,9 +135,31 @@ class DBManager {
         this.readInvoices();
     }
 
-    applySort(invoices = this.invoices, sort=this.activeSort) {
+    applySort(invoices = this.invoices.value, sort=this.activeSort) {
         console.log("APPLYING SORTING...", sort)
-        return invoices
+        return invoices.sort(function (a, b) {
+            let comparison = 0;
+            let dir;
+            for (let k of sort) {
+                let field = k.field
+                dir = k.dir
+                if (!a.hasOwnProperty(field) || !b.hasOwnProperty(field)) {
+                    return 0;
+                }
+                const varA = (typeof a[field] === 'string') ? a[field].toUpperCase() : a[field];
+                const varB = (typeof b[field] === 'string') ? b[field].toUpperCase() : b[field];
+                if (varA > varB) {
+                    comparison = 1;
+                } else if (varA < varB) {
+                    comparison = -1;
+                }
+                comparison = (dir === 'desc') ? (comparison * -1) : comparison
+                if (comparison != 0) return comparison
+            }
+            return (
+                (dir === 'desc') ? (comparison * -1) : comparison
+            );
+        })
     }
 }
 

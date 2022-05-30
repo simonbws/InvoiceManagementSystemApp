@@ -36,10 +36,6 @@ function isInvoiceChecked() {
 
 window.onclick = function () {
     invoiceChecked.value = isInvoiceChecked()
-
-    document.getElementById("submitFilters").onclick = function () {
-        console.log("Filters w invoices:")
-    }
 }
 
 </script>
