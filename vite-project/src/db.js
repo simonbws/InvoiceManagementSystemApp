@@ -7,10 +7,13 @@ class DBManager {
     db;
     invoices;
     users;
+    activeFilters;
 
     constructor() {
         this.db = firebase.firestore();
         this.invoices = ref([])
+        this.activeFilters = []
+        this.activeSort = [];
     }
 
     readUserRole(){
@@ -67,12 +70,14 @@ class DBManager {
         return null
     }
 
-    readInvoices(invoices) {
+    readInvoices() {
         this.db.collection("invoices")
             .get()
             .then((querySnapshot) => {
+                this.invoices.value.length = 0;
+                this.invoices.value = [];
                 querySnapshot.forEach((doc) => {
-                    invoices.value.push({
+                    this.invoices.value.push({
                         name: doc.data().name,
                         date_issue: this.parseDateFromFirebase(doc.data().date_issue),
                         date_create: this.parseDateFromFirebase(doc.data().date_create),
@@ -80,13 +85,58 @@ class DBManager {
                         date_pay: this.parseDateFromFirebase(doc.data().date_pay),
                         supplier_name : doc.data().supplier_name,
                         supplier_nip : doc.data().supplier_nip,
-                        status: doc.data().status
+                        status: doc.data().status,
+                        value: doc.data().value
                     });
                 });
+                this.invoices.value = this.applyFilters()
+                //this.invoices.value = this.applySort()
             })
             .catch((error) => {
                 console.log("Error getting documents: ", error);
             });
+    }
+
+    setFilters(filters) {
+        this.activeFilters = filters;
+        this.readInvoices();
+    }
+
+    applyFilters(invoices = this.invoices.value, filters=this.activeFilters) {
+        console.log("APPLYING FILTERS...", filters)
+        return invoices.filter(function (a) {
+            for (let f of filters) {
+                let filter = f.filter;
+                if (filter.includes("value")) {
+                  let from = f.from;
+                  let to = f.to;
+                  if (!a.hasOwnProperty(filter)) {
+                    return false;
+                  }
+                  if (from > a[filter]) return false;
+                  if (to < a[filter]) return false;
+                } else if (filter.includes("date")) {
+                        let from = f.from;
+                        let to = f.to;
+                        if (!a.hasOwnProperty(filter)) {
+                          return false;
+                        }
+                        if (from > new Date(a[filter])) return false;
+                        if (to < new Date(a[filter])) return false;
+                } 
+              }
+              return true;
+        })
+    }
+
+    setSort(sort) {
+        this.activeSort = sort;
+        this.readInvoices();
+    }
+
+    applySort(invoices = this.invoices, sort=this.activeSort) {
+        console.log("APPLYING SORTING...", sort)
+        return invoices
     }
 }
 

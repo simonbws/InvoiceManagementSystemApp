@@ -4,6 +4,8 @@ import { Tooltip } from 'bootstrap'
 import DBM from '../db'
 import { user } from '../store/user'
 import { storeToRefs } from 'pinia'
+import FilterButtonModal from '../components/FilterButtonModal.vue'
+import SortButtonModal from '../components/SortButtonModal.vue'
 const user2 = user();
 const { roleCreate } = storeToRefs(user2);
 const { roleAdmin } = storeToRefs(user2);
@@ -12,15 +14,14 @@ const { roleAccept } = storeToRefs(user2);
 let checkall = ref(false);
 let invoiceChecked = ref(false);
 
-const invoices = ref([])
-DBM.readInvoices(invoices);
+const invoices = ref(DBM.invoices)
+DBM.readInvoices();
 
 window.onload = function () {
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new Tooltip(tooltipTriggerEl)
     })
-
 };
 
 function isInvoiceChecked() {
@@ -35,6 +36,10 @@ function isInvoiceChecked() {
 
 window.onclick = function () {
     invoiceChecked.value = isInvoiceChecked()
+
+    document.getElementById("submitFilters").onclick = function () {
+        console.log("Filters w invoices:")
+    }
 }
 
 </script>
@@ -43,8 +48,8 @@ window.onclick = function () {
     <div class="container-fluid">
         <div class="container">
             <div class="button-line">
-                <button type="button" class="btn btn-primary  mt-3"><i class="bi bi-filter"></i> Filtruj</button>
-                <button type="button" class="btn btn-primary  mt-3"><i class="bi bi-sort-up"></i> Sortuj</button>
+                <FilterButtonModal></FilterButtonModal>
+                <SortButtonModal></SortButtonModal>
                 <button id="check-all" @click="checkall = !checkall" type="button" class="btn btn-primary  mt-3"><i
                         class="bi bi-check2-all"></i>
                     Zaznacz</button>
@@ -71,6 +76,9 @@ window.onclick = function () {
                                 Dostawca: {{ i.supplier_name }} NIP: {{ i.supplier_nip }}
                             </span>
                             <span class="invoice-info" v-else>Dostawca: X NIP: X</span>
+                            <span class="invoice-value" v-if="i.value">
+                                {{ i.value }} zł
+                            </span>
                             <span class="invoice-date" v-if="i.date_issue">Wystawienie: {{ i.date_issue }}</span>
                             <span class="invoice-date" v-else>Wystawienie: X</span>
                             <span class="invoice-date" v-if="i.date_create">Utworzenie: {{ i.date_create }}</span>
@@ -105,6 +113,15 @@ window.onclick = function () {
 
 <style>
 .invoice-info {
+    float: right;
+    text-align: right;
+    width: 100%;
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.invoice-value {
     float: right;
     text-align: right;
     width: 100%;
@@ -157,9 +174,13 @@ window.onclick = function () {
     display: inline-block;
 }
 
-.button-line button+button {
+.button-line button {
     margin-left: 15px;
     display: inline-block;
+}
+
+.button-line button:first-child {
+    margin-left: 0px;
 }
 
 .btn:focus,
