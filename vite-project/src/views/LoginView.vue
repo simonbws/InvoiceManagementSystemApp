@@ -79,7 +79,7 @@ export default {
     background-color: white;
     position: absolute;
     width: 100vw;
-    height: 200vh;
+    height: 100vh;
     z-index: 1000;
 }
 

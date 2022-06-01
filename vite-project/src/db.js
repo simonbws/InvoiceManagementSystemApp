@@ -9,12 +9,14 @@ class DBManager {
     users;
     activeFilters;
     activeSort;
+    statuses;
 
     constructor() {
         this.db = firebase.firestore();
         this.invoices = ref([])
         this.activeFilters = []
         this.activeSort = [];
+        this.statuses = [0,0];
     }
 
     readUserRole(){
@@ -161,6 +163,24 @@ class DBManager {
             );
         })
     }
+
+    getStatisticsAcceptedAndNot (callback = null) {
+        this.db.collection("invoices")
+            .get()
+            .then((querySnapshot) => {
+                this.statuses = [0,0];
+                querySnapshot.forEach((doc) => {
+                    doc.data().status == 'accepted' ? this.statuses[0]++ : this.statuses[1]++
+                });
+                if(callback){
+                    callback()
+                }
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            }); 
+    }
+
 }
 
 let DBM = new DBManager();

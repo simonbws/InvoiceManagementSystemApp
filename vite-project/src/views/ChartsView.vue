@@ -1,5 +1,21 @@
+<script>
+import ReactivePropPage from '../components/reactivePropPage'
+
+import ReactivePropPage2 from '../components/reactivePropPage2'
+
+export default {
+    name: 'App',
+    components: {
+        ReactivePropPage,
+        ReactivePropPage2
+    }
+}
+
+</script>
+
 <script setup>
-import DoughnutChart from '../components/MyChart.ts'
+import DBM from '../db'
+DBM.getStatisticsAcceptedAndNot()
 </script>
 
 <template>
@@ -11,7 +27,7 @@ import DoughnutChart from '../components/MyChart.ts'
                 <div class="card-body">
                     <h5 class="card-title"></h5>
                     <p class="card-text">
-                        <DoughnutChart />
+                        <reactive-prop-page />
                     </p>
                 </div>
             </div>
@@ -20,7 +36,7 @@ import DoughnutChart from '../components/MyChart.ts'
                 <div class="card-body">
                     <h5 class="card-title"></h5>
                     <p class="card-text">
-                        <DoughnutChart />
+                        <reactive-prop-page2 />
                     </p>
                 </div>
             </div>

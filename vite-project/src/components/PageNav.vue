@@ -31,6 +31,9 @@
     </slot>
 </template>
 
+<style>
+</style>
+
 <script setup>
 import { user } from '../store/user'
 import { storeToRefs } from 'pinia'
