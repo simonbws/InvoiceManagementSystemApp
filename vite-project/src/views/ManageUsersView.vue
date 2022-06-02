@@ -63,8 +63,8 @@ export default {
     name: 'Register',
     data() {
         return {
-            email: 'a2@b.cd',
-            password: '123456',
+            email: '',
+            password: '',
             role: 'standard'
         };
     },
