@@ -13,19 +13,25 @@ export default {
         };
     },
     methods: {
-        // register() {
-        //     firebase
-        //         .auth()
-        //         .createUserWithEmailAndPassword(this.email, this.password)
-        //         .then(() => {
-        //             alert('Successfully registered! Please login.');
-        //             this.$router.push('/');
-        //         })
-        //         .catch(error => {
-        //             alert(error.message);
-        //         });
-        // },
         login() {
+            console.log(this.email)
+            DBM.checkUser(this.email, this.auth, this.notExists)
+        },
+
+        notExists() {
+            document.getElementById('myAlertText').innerHTML = "Użytkownik nie istnieje!"
+            let myModal = new Modal(document.getElementById('myAlert'), {
+                keyboard: false
+            })
+            myModal.show();
+            setTimeout(() => {
+                myModal.hide();
+            }, 500)
+
+        },
+
+        auth() {
+            console.log("authh")
             document.getElementById('myAlertText').innerHTML = "Zalogowano"
             let myModal = new Modal(document.getElementById('myAlert'), {
                 keyboard: false

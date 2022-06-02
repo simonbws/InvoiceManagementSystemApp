@@ -67,6 +67,37 @@ class DBManager {
             });
     }
 
+    checkUser(email, callback, notexists) {
+        this.db.collection("users").doc(email)
+            .get()
+            .then((querySnapshot) => {
+                if (querySnapshot.exists) {
+                    callback()
+                } else {
+                    notexists()
+                }
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
+    }
+
+    deleteUser(email) {
+        this.db.collection("users").doc(email)
+            .delete()
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
+    }
+
+    addUser(email, role) {
+        this.db.collection("users").doc(email)
+            .set({role: role})
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
+    }
+
     parseDateFromFirebase(d) {
         if(d)
             return d.toDate().toISOString().replace(/T/, ' ').replace(/\.\d\d\dZ/, '')

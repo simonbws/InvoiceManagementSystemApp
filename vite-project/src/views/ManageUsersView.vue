@@ -2,33 +2,35 @@
     <div class="container-fluid">
         <div class="container">
             <h3 class="mt-3">Zarejestruj użytkownika</h3>
-            <form class="register-form mt-5">
+            <form class="register-form mt-5" @submit.prevent="register">
                 <div class="mb-3">
                     <label for="exampleInputEmail2" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="exampleInputEmail2">
+                    <input type="email" class="form-control" v-model="email" id="exampleInputEmail2">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword2" class="form-label">Hasło:</label>
-                    <input type="password" class="form-control" id="exampleInputPassword2">
+                    <input type="password" class="form-control" v-model="password" id="exampleInputPassword2">
                 </div>
                 <div class="mb-3">
                     <label for="exampleSelect2" class="form-label">Disabled select menu</label>
-                    <select id="exampleSelect2" class="form-select">
-                        <option>Standard</option>
-                        <option>Accept</option>
-                        <option>Admin</option>
+                    <select id="exampleSelect2" class="form-select" v-model="role">
+                        <option>standard</option>
+                        <option>accept</option>
+                        <option>admin</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Zarejestruj</button>
             </form>
-            <h3 class="mt-5">Użytkownicy</h3>
+            <button id="refreshUsers" @click="refresh" class="btn btn-success mb-3 float-end">Odśwież</button>
+            <h3 class="mt-5">Użytkownicy </h3>
             <div v-for="i in users" class="card users-list-item text-dark bg-light mb-3 mt-3">
                 <div class="card-body">
                     <p>
                         <span class="email-span">{{ i.email }}</span>
                         <span class="role-span">Rola: {{ i.role }}</span>
                     </p>
-                    <button type="button" class="btn btn-danger float-end"><i class="bi bi-x-circle"></i></button>
+                    <button @click="DBM.deleteUser(i.email)" type="button" class="btn btn-danger float-end"><i
+                            class="bi bi-x-circle"></i></button>
                 </div>
             </div>
         </div>
@@ -42,6 +44,44 @@ import { ref, reactive } from 'vue'
 const users = ref([])
 DBM.readUsers(users);
 
+
+function refresh() {
+    console.log("REFRESH")
+    users.value = []
+    DBM.readUsers(users);
+}
+
+
+</script>
+
+<script>
+import { Modal } from 'bootstrap'
+import firebase from '../firebaseInit';
+import { user } from '../store/user'
+
+export default {
+    name: 'Register',
+    data() {
+        return {
+            email: 'a2@b.cd',
+            password: '123456',
+            role: 'standard'
+        };
+    },
+    methods: {
+        register() {
+            firebase
+                .auth()
+                .createUserWithEmailAndPassword(this.email, this.password)
+                .then(() => {
+                    DBM.addUser(this.email, this.role)
+                })
+                .catch(error => {
+                    alert(error.message);
+                });
+        }
+    },
+};
 </script>
 
 <style>
