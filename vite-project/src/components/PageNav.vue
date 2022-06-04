@@ -8,7 +8,7 @@
                         change-view="invoices">Faktury
                     </div>
                 </router-link>
-                <router-link :to="{ name: 'ScheduleView' }" custom v-slot="{ navigate }">
+                <router-link :to="{ name: 'ScheduleView', params: { which: 'past' } }" custom v-slot="{ navigate }">
                     <div role="link" @click="navigate" class="list-group-item change-view" change-view="schedule">
                         Harmonogram
                     </div>
