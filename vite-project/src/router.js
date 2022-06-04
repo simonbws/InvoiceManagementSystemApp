@@ -59,44 +59,44 @@ const router = createRouter({
     ]
   })
 
-//   router.beforeEach((to, from, next) => {
-//         if (to.matched.some(record => record.meta.authRequired)) {
-//           if (to.matched.some(record => record.meta.adminRequired)) {
-//             const user2 = user()
-//             if (firebase.auth().currentUser && user2.roleAdmin) {
-//                 next();
-//             } else {
-//               document.getElementById('myAlertText').innerHTML = "Dostęp tylko dla administratora"
-//               let myModal = new Modal(document.getElementById('myAlert'), {
-//                   keyboard: false
-//               })
-//               myModal.show()
-//               next({
-//                 path: '/',
-//               });
-//               setTimeout(()=>{
-//                 myModal.hide();
-//               },3000);
-//             }
-//         }
-//         else if (firebase.auth().currentUser) {
-//             next();
-//         } else {
-//           document.getElementById('myAlertText').innerHTML = "Zaloguj się, aby uzyskać dostęp"
-//           let myModal = new Modal(document.getElementById('myAlert'), {
-//               keyboard: false
-//           })
-//           myModal.show()
-//           next({
-//             path: '/',
-//           });
-//           setTimeout(()=>{
-//             myModal.hide();
-//           },3000);
-//         }
-//       } else {
-//           next();
-//       }
-// });
+  router.beforeEach((to, from, next) => {
+        if (to.matched.some(record => record.meta.authRequired)) {
+          if (to.matched.some(record => record.meta.adminRequired)) {
+            const user2 = user()
+            if (firebase.auth().currentUser && user2.roleAdmin) {
+                next();
+            } else {
+              document.getElementById('myAlertText').innerHTML = "Dostęp tylko dla administratora"
+              let myModal = new Modal(document.getElementById('myAlert'), {
+                  keyboard: false
+              })
+              myModal.show()
+              next({
+                path: '/',
+              });
+              setTimeout(()=>{
+                myModal.hide();
+              },3000);
+            }
+        }
+        else if (firebase.auth().currentUser) {
+            next();
+        } else {
+          document.getElementById('myAlertText').innerHTML = "Zaloguj się, aby uzyskać dostęp"
+          let myModal = new Modal(document.getElementById('myAlert'), {
+              keyboard: false
+          })
+          myModal.show()
+          next({
+            path: '/',
+          });
+          setTimeout(()=>{
+            myModal.hide();
+          },3000);
+        }
+      } else {
+          next();
+      }
+});
 
 export default router
