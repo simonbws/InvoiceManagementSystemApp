@@ -1,20 +1,9 @@
-<script>
-import ReactivePropPage from '../components/reactivePropPage'
-
-import ReactivePropPage2 from '../components/reactivePropPage2'
-
-export default {
-    name: 'App',
-    components: {
-        ReactivePropPage,
-        ReactivePropPage2
-    }
-}
-
-</script>
 
 <script setup>
 import DBM from '../db'
+import ReactiveChart1 from '../components/ReactiveChart1'
+import ReactiveChart2 from '../components/ReactiveChart2'
+
 DBM.getStatisticsAcceptedAndNot()
 </script>
 
@@ -23,20 +12,20 @@ DBM.getStatisticsAcceptedAndNot()
     <div class="container-fluid">
         <div class="container">
             <div class="card text-dark bg-light mt-3">
-                <div class="card-header">Chart #1</div>
+                <div class="card-header">Wykres #1</div>
                 <div class="card-body">
                     <h5 class="card-title"></h5>
                     <p class="card-text">
-                        <reactive-prop-page />
+                        <reactive-chart-1 />
                     </p>
                 </div>
             </div>
             <div class="card text-dark bg-light mt-3">
-                <div class="card-header">Chart #2</div>
+                <div class="card-header">Wykres #2</div>
                 <div class="card-body">
                     <h5 class="card-title"></h5>
                     <p class="card-text">
-                        <reactive-prop-page2 />
+                        <reactive-chart-2 />
                     </p>
                 </div>
             </div>

@@ -10,6 +10,8 @@ class DBManager {
     activeFilters;
     activeSort;
     statuses;
+    divisionLabels;
+    divisionValues;
 
     constructor() {
         this.db = firebase.firestore();
@@ -17,6 +19,8 @@ class DBManager {
         this.activeFilters = []
         this.activeSort = [];
         this.statuses = [0,0];
+        this.divisionLabels = []
+        this.divisionValues = []
     }
 
     readUserRole(){
@@ -202,6 +206,32 @@ class DBManager {
                 this.statuses = [0,0];
                 querySnapshot.forEach((doc) => {
                     doc.data().status == 'accepted' ? this.statuses[0]++ : this.statuses[1]++
+                });
+                if(callback){
+                    callback()
+                }
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            }); 
+    }
+
+    getStatisticsDivision (field, callback = null) {
+        this.db.collection("invoices")
+            .get()
+            .then((querySnapshot) => {
+                this.divisionLabels = []
+                this.divisionValues = []
+                querySnapshot.forEach((doc) => {
+                    let x = doc.data()[field];
+                    if(x) {
+                        if(this.divisionLabels.includes(x)){
+                            this.divisionValues[this.divisionLabels.indexOf(x)]++;
+                        }else {
+                            this.divisionLabels.push(x)
+                            this.divisionValues.push(1)
+                        }
+                    }
                 });
                 if(callback){
                     callback()
