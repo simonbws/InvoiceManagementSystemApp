@@ -90,7 +90,7 @@ class DBManager {
         this.db.collection("users").doc(email)
             .delete()
             .catch((error) => {
-                console.log("Error getting documents: ", error);
+                console.log("Error deleting documents: ", error);
             });
     }
 
@@ -116,6 +116,7 @@ class DBManager {
                 this.invoices.value = [];
                 querySnapshot.forEach((doc) => {
                     this.invoices.value.push({
+                        id: doc.id,
                         name: doc.data().name,
                         date_issue: this.parseDateFromFirebase(doc.data().date_issue),
                         date_create: this.parseDateFromFirebase(doc.data().date_create),
@@ -132,6 +133,14 @@ class DBManager {
             })
             .catch((error) => {
                 console.log("Error getting documents: ", error);
+            });
+    }
+
+    deleteInvoice(id) {
+        this.db.collection("invoices").doc(id)
+            .delete()
+            .catch((error) => {
+                console.log("Error deleting documents: ", error);
             });
     }
 

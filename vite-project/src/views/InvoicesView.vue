@@ -24,6 +24,11 @@ window.onload = function () {
     })
 };
 
+function deleteInvoice(id) {
+    DBM.deleteInvoice(id)
+    DBM.readInvoices();
+}
+
 function isInvoiceChecked() {
     let c = document.getElementsByClassName('invoice-checkbox')
     if (c)
@@ -87,8 +92,9 @@ window.onclick = function () {
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button type="button" class="btn btn-danger float-end" data-bs-toggle="tooltip"
-                        data-bs-placement="top" title="Usuń fakturę"><i class="bi bi-x-circle"></i></button>
+                    <button type="button" @click="deleteInvoice(i.id)" class="btn btn-danger float-end"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Usuń fakturę"><i
+                            class="bi bi-x-circle"></i></button>
                     <button type="button" class="btn btn-secondary float-end" data-bs-toggle="tooltip"
                         data-bs-placement="top" title="Edytuj fakturę"><i class="bi bi-pencil-square"></i></button>
                     <button type="button" v-if="roleAccept" class="btn btn-primary float-end" data-bs-toggle="tooltip"
