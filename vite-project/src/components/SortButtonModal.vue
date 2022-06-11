@@ -15,14 +15,47 @@
                             sort-method="value desc">Wartość malejąco
                         </li>
                         <li class="list-group-item sort-item" @click="toggleActiveSort" sort-exclude="2"
-                            sort-method="date_issue asc">Data
-                            wystawienia
-                            rosnąco</li>
+                            sort-method="date_issue asc">
+                            Data wystawienia rosnąco</li>
                         <li class="list-group-item sort-item" @click="toggleActiveSort" sort-exclude="2"
                             sort-method="date_issue desc">
-                            Data
-                            wystawienia
-                            malejąco</li>
+                            Data wystawienia malejąco</li>
+                        <li class="list-group-item sort-item" @click="toggleActiveSort" sort-exclude="3"
+                            sort-method="date_create asc">
+                            Data utworzenia rosnąco</li>
+                        <li class="list-group-item sort-item" @click="toggleActiveSort" sort-exclude="3"
+                            sort-method="date_create desc">
+                            Data utworzenia malejąco</li>
+                        <li class="list-group-item sort-item" @click="toggleActiveSort" sort-exclude="4"
+                            sort-method="date_accept asc">
+                            Data akceptacji rosnąco</li>
+                        <li class="list-group-item sort-item" @click="toggleActiveSort" sort-exclude="4"
+                            sort-method="date_accept desc">
+                            Data akceptacji malejąco</li>
+                        <li class="list-group-item sort-item" @click="toggleActiveSort" sort-exclude="5"
+                            sort-method="date_pay asc">
+                            Data płatności rosnąco</li>
+                        <li class="list-group-item sort-item" @click="toggleActiveSort" sort-exclude="5"
+                            sort-method="date_pay desc">
+                            Data płatności malejąco</li>
+                        <li class="list-group-item sort-item" @click="toggleActiveSort" sort-exclude="6"
+                            sort-method="supplier_name asc">
+                            Nazwa dostawcy rosnąco</li>
+                        <li class="list-group-item sort-item" @click="toggleActiveSort" sort-exclude="6"
+                            sort-method="supplier_name desc">
+                            Nazwa dostawcy malejąco</li>
+                        <li class="list-group-item sort-item" @click="toggleActiveSort" sort-exclude="7"
+                            sort-method="name asc">
+                            Nazwa faktury rosnąco</li>
+                        <li class="list-group-item sort-item" @click="toggleActiveSort" sort-exclude="7"
+                            sort-method="name desc">
+                            Nazwa faktury malejąco</li>
+                        <li class="list-group-item sort-item" @click="toggleActiveSort" sort-exclude="8"
+                            sort-method="status asc">
+                            Status rosnąco</li>
+                        <li class="list-group-item sort-item" @click="toggleActiveSort" sort-exclude="8"
+                            sort-method="status desc">
+                            Status malejąco</li>
                     </ul>
                 </div>
                 <div class="modal-footer">

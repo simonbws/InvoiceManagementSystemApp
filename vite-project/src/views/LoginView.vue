@@ -8,7 +8,7 @@ export default {
     name: 'Login',
     data() {
         return {
-            email: 'a@b.cd',
+            email: 'admin@a.bc',
             password: '123456',
         };
     },
@@ -16,6 +16,7 @@ export default {
         login() {
             console.log(this.email)
             DBM.checkUser(this.email, this.auth, this.notExists)
+            // DBM.fillDatabase() // fill database with test data
         },
 
         notExists() {

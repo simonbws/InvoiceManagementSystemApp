@@ -283,6 +283,138 @@ class DBManager {
             }); 
     }
 
+    fillDatabase() {
+        const test_data = [
+            {
+                name: 'FV/202205/1',
+                date_issue: new Date("2022-05-23T00:00:00Z"),
+                date_create: new Date("2022-05-27T00:00:00Z"),
+                date_accept: new Date("2022-06-02T00:00:00Z"),
+                date_pay: new Date("2022-06-15T00:00:00Z"),
+                supplier_name : 'ABC S.A.',
+                supplier_nip : '123-456-789',
+                status: 'accepted',
+                value: 10,
+                items: [{name: 'pozycja', value : 10}]
+            },
+            {
+                name: 'FV/202205/2',
+                date_issue: new Date("2022-05-25T00:00:00Z"),
+                date_create: new Date("2022-05-27T00:00:00Z"),
+                date_accept: null,
+                date_pay: new Date("2022-06-15T00:00:00Z"),
+                supplier_name : 'ABC S.A.',
+                supplier_nip : '123-456-789',
+                status: 'created',
+                value: 25,
+                items: [{name: 'pozycja', value : 10}, {name: 'pozycja 2', value : 15}]
+            },
+            {
+                name: 'FV/202205/3',
+                date_issue: new Date("2022-05-29T00:00:00Z"),
+                date_create: new Date("2022-05-30T00:00:00Z"),
+                date_accept: null,
+                date_pay: new Date("2022-06-30T00:00:00Z"),
+                supplier_name : 'DEF S.A.',
+                supplier_nip : '123-456-789',
+                status: 'created',
+                value: 35,
+                items: [{name: 'pozycja', value : 20}, {name: 'pozycja 2', value : 15}]
+            },
+            {
+                name: 'FV/202206/1',
+                date_issue: new Date("2022-06-01T00:00:00Z"),
+                date_create: new Date("2022-06-01T00:00:00Z"),
+                date_accept: null,
+                date_pay: new Date("2022-06-28T00:00:00Z"),
+                supplier_name : 'DEF S.A.',
+                supplier_nip : '123-456-789',
+                status: 'created',
+                value: 40,
+                items: [{name: 'pozycja', value : 20}, {name: 'pozycja 2', value : 15}, {name: 'pozycja 3', value : 5}]
+            },
+            {
+                name: 'FV/202206/2',
+                date_issue: new Date("2022-06-02T00:00:00Z"),
+                date_create: new Date("2022-06-03T00:00:00Z"),
+                date_accept: new Date("2022-06-10T00:00:00Z"),
+                date_pay: new Date("2022-06-30T00:00:00Z"),
+                supplier_name : 'DEF S.A.',
+                supplier_nip : '123-456-789',
+                status: 'accepted',
+                value: 42,
+                items: [{name: 'pozycja', value : 22}, {name: 'pozycja 2', value : 15}, {name: 'pozycja 3', value : 5}]
+            },
+            {
+                name: 'FV/202206/3',
+                date_issue: new Date("2022-06-05T00:00:00Z"),
+                date_create: new Date("2022-06-06T00:00:00Z"),
+                date_accept: new Date("2022-06-09T00:00:00Z"),
+                date_pay: new Date("2022-06-17T00:00:00Z"),
+                supplier_name : 'DEF S.A.',
+                supplier_nip : '123-456-789',
+                status: 'accepted',
+                value: 70,
+                items: [{name: 'pozycja', value : 50}, {name: 'pozycja 2', value : 15}, {name: 'pozycja 3', value : 5}]
+            },
+            {
+                name: 'FV/202206/4',
+                date_issue: new Date("2022-06-05T00:00:00Z"),
+                date_create: new Date("2022-06-06T00:00:00Z"),
+                date_accept: null,
+                date_pay: new Date("2022-06-12T00:00:00Z"),
+                supplier_name : 'DEF S.A.',
+                supplier_nip : '123-456-789',
+                status: 'created',
+                value: 52,
+                items: [{name: 'pozycja', value : 32}, {name: 'pozycja 2', value : 15}, {name: 'pozycja 3', value : 5}]
+            },
+            {
+                name: 'FV/202206/5',
+                date_issue: new Date("2022-06-02T00:00:00Z"),
+                date_create: new Date("2022-06-08T00:00:00Z"),
+                date_accept: null,
+                date_pay: new Date("2022-06-13T00:00:00Z"),
+                supplier_name : 'GHI S.A.',
+                supplier_nip : '123-456-789',
+                status: 'created',
+                value: 48,
+                items: [{name: 'pozycja', value : 28}, {name: 'pozycja 2', value : 15}, {name: 'pozycja 3', value : 5}]
+            },
+            {
+                name: 'FV/202206/6',
+                date_issue: new Date("2022-06-10T00:00:00Z"),
+                date_create: new Date("2022-06-11T00:00:00Z"),
+                date_accept: null,
+                date_pay: new Date("2022-06-11T00:00:00Z"),
+                supplier_name : 'GHI S.A.',
+                supplier_nip : '123-456-789',
+                status: 'created',
+                value: 26,
+                items: [{name: 'pozycja', value : 6}, {name: 'pozycja 2', value : 15}, {name: 'pozycja 3', value : 5}]
+            },
+            {
+                name: 'FV/202206/7',
+                date_issue: new Date("2022-06-08T00:00:00Z"),
+                date_create: new Date("2022-06-08T00:00:00Z"),
+                date_accept: null,
+                date_pay: new Date("2022-06-10T00:00:00Z"),
+                supplier_name : 'JKL S.A.',
+                supplier_nip : '123-456-789',
+                status: 'created',
+                value: 29,
+                items: [{name: 'pozycja', value : 9}, {name: 'pozycja 2', value : 15}, {name: 'pozycja 3', value : 5}]
+            }
+        ]
+        for(let i of test_data){
+            this.db.collection("invoices").add(i).then((docRef) => {
+                console.log("Document written with ID: ", docRef.id);
+            })
+            .catch((error) => {
+                console.error("Error adding document: ", error);
+            });
+        }
+    }
 }
 
 let DBM = new DBManager();

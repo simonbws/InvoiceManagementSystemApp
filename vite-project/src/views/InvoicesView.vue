@@ -87,6 +87,22 @@ window.onclick = function () {
                     <h5 class="card-title">{{ i.name }}</h5>
                     <!-- <button type="button" class="btn btn-secondary float-end" data-bs-toggle="tooltip"
                         data-bs-placement="top" title="Szczegóły faktury"><i class="bi bi-three-dots"></i></button> -->
+                    <button type="button" v-if="roleAdmin" @click="deleteInvoice(i.id)" class="btn btn-danger float-end"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Usuń fakturę"><i
+                            class="bi bi-x-circle"></i></button>
+                    <button type="button" class="btn btn-secondary float-end" data-bs-toggle="tooltip"
+                        data-bs-placement="top" title="Edytuj fakturę"><i class="bi bi-pencil-square"></i></button>
+                    <button type="button" @click="acceptInvoice(i.id)" v-if="roleAccept && i.status != 'accepted'"
+                        class="btn btn-primary float-end" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Akceptuj fakturę"><i class="bi bi-check-square"></i></button>
+                    <div class="alert alert-warning float-end" role="alert" data-bs-toggle="tooltip"
+                        v-if="i.status == 'created'" data-bs-placement="top" title="Status faktury">
+                        Oczekiwanie na akceptację
+                    </div>
+                    <div class="alert alert-success float-end" role="alert" data-bs-toggle="tooltip"
+                        v-if="i.status == 'accepted'" data-bs-placement="top" title="Status faktury">
+                        Zaakceptowano
+                    </div>
                 </div>
                 <div class="card-body">
                     <input v-if="roleAccept && i.status != 'accepted'" class="form-check-input invoice-checkbox"
@@ -111,24 +127,8 @@ window.onclick = function () {
                         </p>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <button type="button" @click="deleteInvoice(i.id)" class="btn btn-danger float-end"
-                        data-bs-toggle="tooltip" data-bs-placement="top" title="Usuń fakturę"><i
-                            class="bi bi-x-circle"></i></button>
-                    <button type="button" class="btn btn-secondary float-end" data-bs-toggle="tooltip"
-                        data-bs-placement="top" title="Edytuj fakturę"><i class="bi bi-pencil-square"></i></button>
-                    <button type="button" @click="acceptInvoice(i.id)" v-if="roleAccept && i.status != 'accepted'"
-                        class="btn btn-primary float-end" data-bs-toggle="tooltip" data-bs-placement="top"
-                        title="Akceptuj fakturę"><i class="bi bi-check-square"></i></button>
-                    <div class="alert alert-warning float-end" role="alert" data-bs-toggle="tooltip"
-                        v-if="i.status == 'created'" data-bs-placement="top" title="Status faktury">
-                        Oczekiwanie na akceptację
-                    </div>
-                    <div class="alert alert-success float-end" role="alert" data-bs-toggle="tooltip"
-                        v-if="i.status == 'accepted'" data-bs-placement="top" title="Status faktury">
-                        Zaakceptowano
-                    </div>
-                </div>
+                <!-- <div class="card-footer">
+                </div> -->
             </div>
         </div>
     </div>
@@ -212,7 +212,7 @@ window.onclick = function () {
     box-shadow: none;
 }
 
-.card-footer button+button {
+.card-header button+button {
     margin-right: 15px;
 }
 </style>
