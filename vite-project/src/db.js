@@ -104,8 +104,18 @@ class DBManager {
 
     parseDateFromFirebase(d) {
         if(d)
-            return d.toDate().toISOString().replace(/T/, ' ').replace(/\.\d\d\dZ/, '')
+            return d.toDate().toISOString().replace(/T.+/, '')
         return null
+    }
+
+    acceptInvoices(data) {
+        for(let i of data) {
+            this.db.collection("invoices").doc(i).update({status:'accepted', date_accept: new Date()})
+            .then()
+            .catch((error) => {
+                console.error("Error editing document: ", error);
+            });
+        }
     }
 
     createInvoice(data) {

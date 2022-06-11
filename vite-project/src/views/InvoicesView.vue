@@ -29,6 +29,25 @@ function deleteInvoice(id) {
     DBM.readInvoices();
 }
 
+function acceptInvoice(id) {
+    DBM.acceptInvoices([id]);
+    DBM.readInvoices();
+}
+
+function acceptInvoices() {
+    let items = document.getElementsByClassName('invoice-checkbox');
+    let ids = []
+    console.log(items)
+    if (items) {
+        for (let i of items) {
+            if (i.checked)
+                ids.push(i.getAttribute('invoice-id'))
+        }
+        DBM.acceptInvoices(ids);
+        DBM.readInvoices();
+    }
+}
+
 function isInvoiceChecked() {
     let c = document.getElementsByClassName('invoice-checkbox')
     if (c)
@@ -54,8 +73,8 @@ window.onclick = function () {
                 <button id="check-all" @click="checkall = !checkall" type="button" class="btn btn-primary  mt-3"><i
                         class="bi bi-check2-all"></i>
                     Zaznacz</button>
-                <button id="check-all" v-if="invoiceChecked" type="button" class="btn btn-primary  mt-3"><i
-                        class="bi bi-check-square"></i>
+                <button id="check-all" v-if="invoiceChecked" @click="acceptInvoices()" type="button"
+                    class="btn btn-primary  mt-3"><i class="bi bi-check-square"></i>
                     Akceptuj zaznaczone</button>
                 <router-link :to="{ name: 'NewInvoiceView' }" custom v-slot="{ navigate }">
                     <button role="link" @click="navigate" type="button" v-if="roleCreate"
@@ -66,11 +85,12 @@ window.onclick = function () {
             <div v-for="i in invoices" class="card invoice-list-item text-dark bg-light mb-3 mt-3">
                 <div class="card-header">
                     <h5 class="card-title">{{ i.name }}</h5>
-                    <button type="button" class="btn btn-secondary float-end" data-bs-toggle="tooltip"
-                        data-bs-placement="top" title="Szczegóły faktury"><i class="bi bi-three-dots"></i></button>
+                    <!-- <button type="button" class="btn btn-secondary float-end" data-bs-toggle="tooltip"
+                        data-bs-placement="top" title="Szczegóły faktury"><i class="bi bi-three-dots"></i></button> -->
                 </div>
                 <div class="card-body">
-                    <input class="form-check-input invoice-checkbox" type="checkbox" value="" :checked="checkall">
+                    <input v-if="roleAccept && i.status != 'accepted'" class="form-check-input invoice-checkbox"
+                        type="checkbox" value="" :checked="checkall" :invoice-id="i.id">
                     <div>
                         <p class="card-text">
                             <span class="invoice-info" v-if="i.supplier_name">
@@ -97,8 +117,9 @@ window.onclick = function () {
                             class="bi bi-x-circle"></i></button>
                     <button type="button" class="btn btn-secondary float-end" data-bs-toggle="tooltip"
                         data-bs-placement="top" title="Edytuj fakturę"><i class="bi bi-pencil-square"></i></button>
-                    <button type="button" v-if="roleAccept" class="btn btn-primary float-end" data-bs-toggle="tooltip"
-                        data-bs-placement="top" title="Akceptuj fakturę"><i class="bi bi-check-square"></i></button>
+                    <button type="button" @click="acceptInvoice(i.id)" v-if="roleAccept && i.status != 'accepted'"
+                        class="btn btn-primary float-end" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Akceptuj fakturę"><i class="bi bi-check-square"></i></button>
                     <div class="alert alert-warning float-end" role="alert" data-bs-toggle="tooltip"
                         v-if="i.status == 'created'" data-bs-placement="top" title="Status faktury">
                         Oczekiwanie na akceptację
