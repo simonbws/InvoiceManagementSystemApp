@@ -108,6 +108,28 @@ class DBManager {
         return null
     }
 
+    createInvoice(data) {
+        console.log("CREATE INVOICE", data)
+        this.db.collection("invoices").add({
+            name: data.name,
+            date_issue: new Date(data.date_issue+"T00:00:00Z"),
+            date_create: new Date(),
+            date_accept: null,
+            date_pay: new Date(data.date_pay+"T00:00:00Z"),
+            supplier_name : data.supplier_name,
+            supplier_nip : data.supplier_nip,
+            status: 'created',
+            value: data.invoice_value,
+            items: data.invoice_items
+        }).then((docRef) => {
+            console.log("Document written with ID: ", docRef.id);
+        })
+        .catch((error) => {
+            console.error("Error adding document: ", error);
+        });
+        
+    }
+
     readInvoices() {
         this.db.collection("invoices")
             .get()
