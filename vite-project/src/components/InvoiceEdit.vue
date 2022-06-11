@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import DBM from '../db'
 import { user } from '../store/user'
 import { storeToRefs } from 'pinia'
@@ -8,8 +8,7 @@ const { roleCreate } = storeToRefs(user2);
 const { roleAdmin } = storeToRefs(user2);
 const { roleAccept } = storeToRefs(user2);
 
-const invoice_items_count = ref(1);
-const invoice_value = ref(0);
+const props = defineProps(['id'])
 
 function sumInvoiceItems() {
   let items = document.getElementsByClassName('invoice-item');
@@ -21,34 +20,11 @@ function sumInvoiceItems() {
   return s;
 }
 
+let data = ref(DBM.invoice);
+DBM.readInvoice(props.id);
 
-const data = reactive(
-  {
-    name: null,
-    supplier_name: null,
-    supplier_nip: null,
-    date_issue: new Date().toISOString().replace(/T.+/, ''),
-    date_pay: new Date().toISOString().replace(/T.+/, ''),
-    invoice_items: [],
-    invoice_value: null
-  })
-
-function createInvoice() {
-  let items = document.getElementsByClassName('invoice-item');
-  let items_objects = []
-  for (let i of items) {
-    let name = i.getElementsByClassName('invoice-item-name')[0].value;
-    let value = i.getElementsByClassName('invoice-item-value')[0].value;
-    items_objects.push({ name: name, value: value })
-  }
-
-  data.invoice_items = items_objects;
-  data.invoice_value = invoice_value.value;
-
-  DBM.createInvoice(data)
-
-  invoice_value.value = 0;
-  invoice_items_count.value = 0;
+function editInvoice() {
+  DBM.editInvoice(data.value.id, data.value)
 }
 
 </script>
@@ -57,7 +33,7 @@ function createInvoice() {
     <div class="container">
 
       <form @submit.prevent="" class="invoice-view create-invoice-form mt-3">
-        <h4>Dodaj fakturę</h4>
+        <h4>Edytuj fakturę</h4>
         <div class="billing-from flex flex-column mt-3">
           <div class="input flex flex-column">
             <label class="form-label">Invoice number</label>
@@ -76,25 +52,42 @@ function createInvoice() {
             <input required type="date" v-model="data.date_issue" class="form-control" />
           </div>
           <div class="input flex flex-column">
+            <label class="form-label">Data utworzenia</label>
+            <input required type="date" v-model="data.date_create" class="form-control" />
+          </div>
+          <div class="input flex flex-column">
+            <label class="form-label">Data akceptacji</label>
+            <input type="date" v-model="data.date_accept" class="form-control" />
+          </div>
+          <div class="input flex flex-column">
             <label class="form-label">Termin płatności</label>
             <input required type="date" v-model="data.date_pay" class="form-control" />
           </div>
+          <div class="input flex flex-column"></div>
+          <label class="form-label">Status</label>
+          <div class="input-group date" id="datepicker5">
+            <select id="exampleSelect3" class="form-select" v-model="data.status">
+              <option :selected="data.status == 'created'">created</option>
+              <option :selected="data.status == 'accepted'">accepted</option>
+            </select>
+          </div>
         </div>
-        <h5 class="mt-3 items-header">Dodaj pozycję</h5>
 
-        <div class="invoice-item mt-3" v-for="i in invoice_items_count">
-          <input required type="text" class="form-control invoice-item-name mt-1" />
-          <input required type="number" v-on:change="invoice_value = sumInvoiceItems()" min="0" value="0" step="0.01"
-            class="form-control invoice-item-value mt-1" />
+        <h5 class="mt-3 items-header">Edytuj pozycję</h5>
+
+        <div class="invoice-item mt-3" v-for="i in data.items">
+          <input required type="text" class="form-control invoice-item-name mt-1" v-model="i.name" />
+          <input required v-model="i.value" type="number" v-on:change="data.value = sumInvoiceItems()" min="0"
+            step="0.01" class="form-control invoice-item-value mt-1" />
         </div>
-        <button @click="invoice_items_count++" class="btn btn-primary float-end mt-3 add-invoice-item">Dodaj</button>
+        <!-- <button @click="invoice_items_count++" class="btn btn-primary float-end mt-3 add-invoice-item">Dodaj</button> -->
 
-        <h5 class="invoice-value mt-3">Wartość: {{ invoice_value }}</h5>
+        <h5 class="invoice-value mt-3">Wartość: {{ data.value }}</h5>
         <div class="confirm-container">
-          <button @click="createInvoice" class="btn btn-success float-end mt-5" v-if="roleCreate">Utwórz</button>
+          <button @click="editInvoice" class="btn btn-warning float-end mt-5" v-if="roleCreate">Edytuj</button>
           <router-link :to="{ name: 'InvoicesView' }" custom v-slot="{ navigate }">
             <button role="link" @click="navigate" type="button" class="btn btn-secondary float-end  mt-5">
-              Anuluj </button>
+              Powrót </button>
           </router-link>
         </div>
       </form>

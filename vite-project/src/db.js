@@ -12,6 +12,7 @@ class DBManager {
     statuses;
     divisionLabels;
     divisionValues;
+    invoice;
 
     constructor() {
         this.db = firebase.firestore();
@@ -21,6 +22,7 @@ class DBManager {
         this.statuses = [0,0];
         this.divisionLabels = []
         this.divisionValues = []
+        this.invoice = ref({})
     }
 
     readUserRole(){
@@ -116,6 +118,53 @@ class DBManager {
                 console.error("Error editing document: ", error);
             });
         }
+    }
+
+    readInvoice(id) {
+        console.log("read invoice: ", id)
+        this.db.collection("invoices")
+            .doc(id)
+            .get()
+            .then((querySnapshot) => {
+                let doc = querySnapshot;
+                console.log("success: ", doc.data().name)
+                this.invoice.value = {
+                    id: doc.id,
+                    name: doc.data().name,
+                    date_issue: this.parseDateFromFirebase(doc.data().date_issue),
+                    date_create: this.parseDateFromFirebase(doc.data().date_create),
+                    date_accept: this.parseDateFromFirebase(doc.data().date_accept),
+                    date_pay: this.parseDateFromFirebase(doc.data().date_pay),
+                    supplier_name : doc.data().supplier_name,
+                    supplier_nip : doc.data().supplier_nip,
+                    status: doc.data().status,
+                    value: doc.data().value,
+                    items: doc.data().items
+                };
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
+    }
+
+    editInvoice(id, data) {
+        console.log("EDIT INVOICE", id, data)
+        this.db.collection("invoices").doc(id).update({
+            name: data.name,
+            date_issue: data.date_issue ? new Date(data.date_issue+"T00:00:00Z") : null,
+            date_create: data.date_create ? new Date(data.date_create+"T00:00:00Z"): null,
+            date_accept: data.date_accept ? new Date(data.date_accept+"T00:00:00Z"): null,
+            date_pay: data.date_pay ? new Date(data.date_pay+"T00:00:00Z"): null,
+            supplier_name : data.supplier_name,
+            supplier_nip : data.supplier_nip,
+            status: data.status,
+            value: data.value,
+            items: data.items
+        }).then()
+        .catch((error) => {
+            console.error("Error adding document: ", error);
+        });
+        
     }
 
     createInvoice(data) {

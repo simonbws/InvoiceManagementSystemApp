@@ -90,8 +90,11 @@ window.onclick = function () {
                     <button type="button" v-if="roleAdmin" @click="deleteInvoice(i.id)" class="btn btn-danger float-end"
                         data-bs-toggle="tooltip" data-bs-placement="top" title="Usuń fakturę"><i
                             class="bi bi-x-circle"></i></button>
-                    <button type="button" class="btn btn-secondary float-end" data-bs-toggle="tooltip"
-                        data-bs-placement="top" title="Edytuj fakturę"><i class="bi bi-pencil-square"></i></button>
+                    <router-link :to="{ name: 'EditInvoiceView', params: { id: i.id } }" custom v-slot="{ navigate }">
+                        <button role="link" @click="navigate" type="button" class="btn btn-secondary float-end"
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="Edytuj fakturę">
+                            <i class="bi bi-pencil-square"></i></button>
+                    </router-link>
                     <button type="button" @click="acceptInvoice(i.id)" v-if="roleAccept && i.status != 'accepted'"
                         class="btn btn-primary float-end" data-bs-toggle="tooltip" data-bs-placement="top"
                         title="Akceptuj fakturę"><i class="bi bi-check-square"></i></button>
