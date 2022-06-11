@@ -56,7 +56,7 @@ function createInvoice() {
   <div class="container-fluid">
     <div class="container">
 
-      <form @submit.prevent="" class="invoice-view create-invoice-form mt-3">
+      <form @submit.prevent="createInvoice" class="invoice-view create-invoice-form mt-3">
         <h4>Dodaj fakturę</h4>
         <div class="billing-from flex flex-column mt-3">
           <div class="input flex flex-column">
@@ -83,7 +83,7 @@ function createInvoice() {
         <h5 class="mt-3 items-header">Dodaj pozycję</h5>
 
         <div class="invoice-item mt-3" v-for="i in invoice_items_count">
-          <input required type="text" class="form-control invoice-item-name mt-1" />
+          <input required type="text" class="form-control invoice-item-name mt-1" value="" />
           <input required type="number" v-on:change="invoice_value = sumInvoiceItems()" min="0" value="0" step="0.01"
             class="form-control invoice-item-value mt-1" />
         </div>
@@ -91,10 +91,10 @@ function createInvoice() {
 
         <h5 class="invoice-value mt-3">Wartość: {{ invoice_value }}</h5>
         <div class="confirm-container">
-          <button @click="createInvoice" class="btn btn-success float-end mt-5" v-if="roleCreate">Utwórz</button>
+          <button class="btn btn-success float-end mt-5 mb-5" v-if="roleCreate">Utwórz</button>
           <router-link :to="{ name: 'InvoicesView' }" custom v-slot="{ navigate }">
             <button role="link" @click="navigate" type="button" class="btn btn-secondary float-end  mt-5">
-              Anuluj </button>
+              Powrót </button>
           </router-link>
         </div>
       </form>

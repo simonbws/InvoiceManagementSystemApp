@@ -84,7 +84,7 @@ function editInvoice() {
 
         <h5 class="invoice-value mt-3">Wartość: {{ data.value }}</h5>
         <div class="confirm-container">
-          <button @click="editInvoice" class="btn btn-warning float-end mt-5" v-if="roleCreate">Edytuj</button>
+          <button @click="editInvoice" class="btn btn-warning float-end mt-5 mb-5" v-if="roleCreate">Edytuj</button>
           <router-link :to="{ name: 'InvoicesView' }" custom v-slot="{ navigate }">
             <button role="link" @click="navigate" type="button" class="btn btn-secondary float-end  mt-5">
               Powrót </button>

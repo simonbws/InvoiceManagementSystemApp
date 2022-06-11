@@ -20,7 +20,7 @@ DBM.getStatisticsAcceptedAndNot()
                     </p>
                 </div>
             </div>
-            <div class="card text-dark bg-light mt-3">
+            <div class="card text-dark bg-light mt-3 mb-5">
                 <div class="card-header">Wykres #2</div>
                 <div class="card-body">
                     <h5 class="card-title"></h5>

@@ -1,6 +1,7 @@
 import firebase from "./firebaseInit";
 import { ref, reactive } from 'vue';
 import { user } from './store/user'
+import { Modal } from 'bootstrap'
 
 class DBManager {
 
@@ -23,6 +24,17 @@ class DBManager {
         this.divisionLabels = []
         this.divisionValues = []
         this.invoice = ref({})
+    }
+
+    myalert(text, time = 500) {
+        document.getElementById('myAlertText').innerHTML = text
+            let myModal = new Modal(document.getElementById('myAlert'), {
+                keyboard: false
+            })
+            myModal.show();
+            setTimeout(() => {
+                myModal.hide();
+            }, time)
     }
 
     readUserRole(){
@@ -91,6 +103,9 @@ class DBManager {
     deleteUser(email) {
         this.db.collection("users").doc(email)
             .delete()
+            .then(
+                this.myalert("Użytkownik usunięty")
+            )
             .catch((error) => {
                 console.log("Error deleting documents: ", error);
             });
@@ -99,6 +114,9 @@ class DBManager {
     addUser(email, role) {
         this.db.collection("users").doc(email)
             .set({role: role})
+            .then(
+                this.myalert("Użytkownik dodany")
+            )
             .catch((error) => {
                 console.log("Error getting documents: ", error);
             });
@@ -160,7 +178,9 @@ class DBManager {
             status: data.status,
             value: data.value,
             items: data.items
-        }).then()
+        }).then(
+            this.myalert("Edycja pomyślna")
+        )
         .catch((error) => {
             console.error("Error adding document: ", error);
         });
@@ -182,6 +202,7 @@ class DBManager {
             items: data.invoice_items
         }).then((docRef) => {
             console.log("Document written with ID: ", docRef.id);
+            this.myalert("Faktura została dodana")
         })
         .catch((error) => {
             console.error("Error adding document: ", error);
@@ -220,6 +241,7 @@ class DBManager {
     deleteInvoice(id) {
         this.db.collection("invoices").doc(id)
             .delete()
+            .then(this.myalert("Faktura została usunięta", 300))
             .catch((error) => {
                 console.log("Error deleting documents: ", error);
             });

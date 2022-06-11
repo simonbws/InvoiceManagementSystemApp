@@ -40,6 +40,10 @@ window.onload = function () {
   text-align: center;
 }
 
+.modal-backdrop {
+  background-color: transparent !important;
+}
+
 body {
   overflow-x: hidden;
 }

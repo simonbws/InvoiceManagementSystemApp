@@ -40,7 +40,9 @@ import { storeToRefs } from 'pinia'
 const user2 = user();
 const { roleAdmin } = storeToRefs(user2);
 
-document.body.onclick = function () {
+setTimeout(initActiveNav(), 100)
+
+function initActiveNav() {
     let changeView = document.getElementsByClassName('change-view');
     for (let c of changeView) {
         c.addEventListener("click", function (e) {
@@ -53,6 +55,8 @@ document.body.onclick = function () {
         });
     }
 };
+
+document.body.onclick = initActiveNav
 
 </script>
 
@@ -83,8 +87,8 @@ export default {
                         this.$router.push('/')
                         setTimeout(() => {
                             myModal.hide();
-                        }, 1000);
-                    }, 500);
+                        }, 400);
+                    }, 400);
                 })
                 .catch(error => {
                     alert(error.message);

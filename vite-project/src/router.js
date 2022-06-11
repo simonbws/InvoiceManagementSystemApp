@@ -85,7 +85,7 @@ const router = createRouter({
               });
               setTimeout(()=>{
                 myModal.hide();
-              },3000);
+              },500);
             }
         }
         else if (firebase.auth().currentUser) {
@@ -101,7 +101,7 @@ const router = createRouter({
           });
           setTimeout(()=>{
             myModal.hide();
-          },3000);
+          },500);
         }
       } else {
           next();

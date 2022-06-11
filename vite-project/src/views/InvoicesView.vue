@@ -44,7 +44,7 @@ function acceptInvoices() {
                 ids.push(i.getAttribute('invoice-id'))
         }
         DBM.acceptInvoices(ids);
-        DBM.readInvoices();
+        setTimeout(DBM.readInvoices(), 100);
     }
 }
 

@@ -9,7 +9,7 @@
                 </div>
                 <div class="modal-body">
                     <ul class="list-group">
-                        <li class="list-group-item sort-item active" @click="toggleActiveSort" sort-exclude="1"
+                        <li class="list-group-item sort-item" @click="toggleActiveSort" sort-exclude="1"
                             sort-method="value asc" aria-current="true">Wartość rosnąco</li>
                         <li class="list-group-item sort-item" @click="toggleActiveSort" sort-exclude="1"
                             sort-method="value desc">Wartość malejąco
