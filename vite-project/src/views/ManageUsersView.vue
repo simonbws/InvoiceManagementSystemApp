@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <div class="container">
+        <div class="container register-container">
             <h3 class="mt-3">Zarejestruj użytkownika</h3>
             <form class="register-form mt-5" @submit.prevent="register">
                 <div class="mb-3">
@@ -21,7 +21,11 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Zarejestruj</button>
             </form>
-            <button id="refreshUsers" @click="refresh" class="btn btn-success mb-3 float-end">Odśwież</button>
+
+            <button id="refreshUsers" @click="refresh" class="btn btn-success mb-3 float-end">Odśwież listę
+                użytkowników</button>
+            <button @click="DBM.fillDatabase()" type="button" class="btn btn-secondary float-end">Uzupełnij bazę
+                danych danymi testowymi</button>
             <h3 class="mt-5">Użytkownicy </h3>
             <div v-for="i in users" class="card users-list-item text-dark bg-light mb-3 mt-3">
                 <div class="card-body">
@@ -100,5 +104,9 @@ export default {
 
 .users-list-item button {
     display: inline;
+}
+
+.register-container button+button {
+    margin-right: 10px;
 }
 </style>
