@@ -8,11 +8,11 @@
                     <input type="email" class="form-control" v-model="email" id="exampleInputEmail2">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword2" class="form-label">Hasło:</label>
+                    <label for="exampleInputPassword2" class="form-label">Hasło</label>
                     <input type="password" class="form-control" v-model="password" id="exampleInputPassword2">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleSelect2" class="form-label">Disabled select menu</label>
+                    <label for="exampleSelect2" class="form-label">Rola</label>
                     <select id="exampleSelect2" class="form-select" v-model="role">
                         <option>standard</option>
                         <option>accept</option>

@@ -36,6 +36,55 @@
                                 Nieprawidłowa wartość.
                             </div>
                         </li>
+                        <li class="list-group-item filter-item" @click="e => e.target.classList.toggle('active')"
+                            filter-method="date_create">
+                            <label class="form-label">Data utworzenia</label>
+                            <div class="input-group date" id="datepicker2">
+                                <input class="form-control filter-from" type="date" />
+                                <span class="input-group-text"><code>&lt;&gt;</code></span>
+                                <input class="form-control filter-to" type="date" />
+                            </div>
+                            <div class="filter-invalid hidden">
+                                Nieprawidłowa wartość.
+                            </div>
+                        </li>
+                        <li class="list-group-item filter-item" @click="e => e.target.classList.toggle('active')"
+                            filter-method="date_pay">
+                            <label class="form-label">Data płatności</label>
+                            <div class="input-group date" id="datepicker3">
+                                <input class="form-control filter-from" type="date" />
+                                <span class="input-group-text"><code>&lt;&gt;</code></span>
+                                <input class="form-control filter-to" type="date" />
+                            </div>
+                            <div class="filter-invalid hidden">
+                                Nieprawidłowa wartość.
+                            </div>
+                        </li>
+                        <li class="list-group-item filter-item" @click="e => e.target.classList.toggle('active')"
+                            filter-method="date_accept">
+                            <label class="form-label">Data akceptacji</label>
+                            <div class="input-group date" id="datepicker4">
+                                <input class="form-control filter-from" type="date" />
+                                <span class="input-group-text"><code>&lt;&gt;</code></span>
+                                <input class="form-control filter-to" type="date" />
+                            </div>
+                            <div class="filter-invalid hidden">
+                                Nieprawidłowa wartość.
+                            </div>
+                        </li>
+                        <li class="list-group-item filter-item" @click="e => e.target.classList.toggle('active')"
+                            filter-method="status">
+                            <label class="form-label">Status</label>
+                            <div class="input-group date" id="datepicker5">
+                                <select id="exampleSelect3" class="form-select">
+                                    <option>created</option>
+                                    <option>accepted</option>
+                                </select>
+                            </div>
+                            <div class="filter-invalid hidden">
+                                Nieprawidłowa wartość.
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 <div class="modal-footer">
@@ -66,10 +115,19 @@ function submitFilters() {
                 else filtervalues.push(v);
                 break;
             case "date_issue":
+            case "date_accept":
+            case "date_create":
+            case "date_pay":
                 v = validateDate(f);
                 if (!v) return;
                 else filtervalues.push(v);
                 break;
+            case "status":
+                filtervalues.push({
+                    filter: 'status',
+                    from: f.getElementsByClassName('form-select')[0].value,
+                    to: f.getElementsByClassName('form-select')[0].value
+                });
         }
     }
 

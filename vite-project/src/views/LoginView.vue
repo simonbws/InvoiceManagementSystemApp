@@ -16,7 +16,7 @@ export default {
         login() {
             console.log(this.email)
             DBM.checkUser(this.email, this.auth, this.notExists)
-            // DBM.fillDatabase() // fill database with test data
+            //DBM.fillDatabase() // fill database with test data
         },
 
         notExists() {

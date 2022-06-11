@@ -194,7 +194,16 @@ class DBManager {
                   }
                   if (from > a[filter]) return false;
                   if (to < a[filter]) return false;
-                } else if (filter.includes("date")) {
+                }
+                else if (filter.includes("status")) {
+                    let from = f.from;
+                    let to = f.to;
+                    if (!a.hasOwnProperty(filter)) {
+                      return false;
+                    }
+                    if (from != a[filter]) return false;
+                }
+                else if (filter.includes("date")) {
                         let from = f.from;
                         let to = f.to;
                         if (!a.hasOwnProperty(filter)) {
@@ -221,8 +230,11 @@ class DBManager {
             for (let k of sort) {
                 let field = k.field
                 dir = k.dir
-                if (!a.hasOwnProperty(field) || !b.hasOwnProperty(field)) {
-                    return 0;
+                if (!a[field]) {
+                    return -1;
+                }
+                if (!b[field]) {
+                    return 1;
                 }
                 const varA = (typeof a[field] === 'string') ? a[field].toUpperCase() : a[field];
                 const varB = (typeof b[field] === 'string') ? b[field].toUpperCase() : b[field];
