@@ -1,33 +1,32 @@
 https://invoices-75a47.web.app/
 
-Bogate aplikacje internetowe <br />
-Projekt zaliczeniowy
+Subject Name: Rich internet applications
+Semester project
 
-Grupa nr 15 <br />
-Członkowie: <br />
--Damian Filipowski <br />
+Group #15
+Members:
+-Damian Filipowski
 -Szymon Bywalec
 
+Topic: invoice management application
+Technologies: Vue + Firebase
 
-Temat: Aplikacja do zarządzania fakturami <br />
-Technologie: Vue + Firebase <br />
+Functionality:
+-displaying a list of invoices - maybe alternative ways of displaying them
+-filtering, sorting of results
+-adding a new invoice using a form
+-editing invoice status (acceptance, etc.)
+-editing an invoice using the form
+-deleting an invoice
+-presenting statistics e.g. payments on charts
 
+Classroom findings:
+-incoming invoices only
+-date of fv issue, date of fv entry, date of fv acceptance, date of fv payment
+-contractor has limited information (e.g., only TIN and name - possibly from CSO)
+-invoice amount, amount to be paid
+-single and group marking for invoice status change
+-harmonogram of payments: overdue, for today, for tomorrow
+-users with roles: admin, add, accept, etc.
 
-Funkcjonalności: <br />
--wyświetlanie listy faktur - może alternatywne sposoby wyświetlania <br />
--filtrowanie, sortowanie wyników <br />
--dodawanie nowej faktury za pomocą formularza <br />
--edytowanie statusu faktury (akceptacja itd.) <br />
--edytowanie faktury za pomocą formularza  <br />
--usuwanie faktury <br />
--prezentowanie statystyk np. płatności na wykresach<br />
-
-Ustalenia z zajęć:<br />
--tylko faktury przychodzące<br />
--data wystawienia fv, data wprowadzenia fv, data akceptacji fv, data zapłaty fv<br />
--kontrahent ma ograniczone informacje (np. tylko NIP i nazwę - ewentualnie z GUSu)<br />
--kwota faktury, kwota do zapłaty<br />
--pojedyncze i grupowe oznaczanie do zmiany statusu faktury<br />
--harmonogram opłat: zaległe, na dziś, na jutro<br />
--użytkownicy z rolami: administrator, dodawanie, akceptowanie itd.<br />
-
+Translated with www.DeepL.com/Translator (free version)
