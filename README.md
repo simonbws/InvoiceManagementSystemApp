@@ -29,4 +29,4 @@ Classroom findings:
 -harmonogram of payments: overdue, for today, for tomorrow
 -users with roles: admin, add, accept, etc.
 
-Translated with www.DeepL.com/Translator (free version)
+
